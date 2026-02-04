@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevKit Utilidades</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              dark: {
+                bg: '#1a1b26',
+                card: '#24283b',
+                text: '#a9b1d6',
+                primary: '#7aa2f7',
+                secondary: '#c0caf5',
+                accent: '#bb9af7',
+              },
+              light: {
+                bg: '#f4f5f7',
+                card: '#ffffff',
+                text: '#3d4554',
+                primary: '#2d78f7',
+                secondary: '#565c6c',
+                accent: '#7e42d6',
+              }
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.23.1",
+    "react-router-dom/": "https://esm.sh/react-router-dom@6.23.1/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-light-bg dark:bg-dark-bg">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
