@@ -103,12 +103,17 @@ const ColorPicker: React.FC = () => {
     const handleCanvasInteraction = (e: React.MouseEvent<HTMLCanvasElement>, action: 'hover' | 'click') => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (!ctx) return;
 
         const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        
+        // Corrigir as coordenadas do mouse para corresponder à escala do canvas
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const x = (e.clientX - rect.left) * scaleX;
+        const y = (e.clientY - rect.top) * scaleY;
+
         const pixel = ctx.getImageData(x, y, 1, 1).data;
         const [r, g, b] = pixel;
         const newHex = rgbToHex(r, g, b);
