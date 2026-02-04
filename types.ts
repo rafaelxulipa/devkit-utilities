@@ -7,6 +7,7 @@ export enum Category {
   DOCUMENTS = "Documentos e Validações",
   DEV = "Desenvolvedor",
   MOCK_DATA = "Dados Fictícios",
+  DATES = "Datas e Horas",
 }
 
 export interface Tool {

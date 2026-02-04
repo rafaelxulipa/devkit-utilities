@@ -17,6 +17,10 @@ import LoremIpsumGenerator from './features/LoremIpsumGenerator';
 import TextTools from './features/TextTools';
 import NumberGenerator from './features/NumberGenerator';
 import ImagePlaceholderGenerator from './features/ImagePlaceholderGenerator';
+import SuperTextTool from './features/SuperTextTool';
+import NumberToWords from './features/NumberToWords';
+import CodeFormatter from './features/CodeFormatter';
+import DateCalculator from './features/DateCalculator';
 
 const TextIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -103,6 +107,32 @@ const PhotoIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
     </svg>
 );
 
+const SuperTextToolIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+    </svg>
+);
+
+const NumberToWordsIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.252v11.496M16.5 12.252H7.5" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17 19.752H7c-1.657 0-3-1.343-3-3V7.252c0-1.657 1.343-3 3-3h10c1.657 0 3 1.343 3 3v9.5c0 1.657-1.343 3-3 3z" />
+    </svg>
+);
+
+const CodeFormatterIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h3m-3 5h3m-3 5h3" />
+    </svg>
+);
+
+const CalendarIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+);
+
 
 export const ALL_TOOLS: Tool[] = [
   {
@@ -116,6 +146,36 @@ export const ALL_TOOLS: Tool[] = [
     tags: ['texto', 'contador', 'palavras', 'caracteres', 'word counter'],
   },
   {
+    id: 'super-text-tool',
+    title: 'Super Ferramenta de Texto',
+    description: 'Ordene, inverta, converta maiúsculas/minúsculas, remova acentos e muito mais.',
+    path: 'super-ferramenta-texto',
+    category: Category.TEXT,
+    icon: SuperTextToolIcon,
+    component: SuperTextTool,
+    tags: ['texto', 'formatar', 'ordenar', 'converter', 'remover', 'acentos', 'html', 'corretor'],
+  },
+  {
+    id: 'number-to-words',
+    title: 'Número por Extenso',
+    description: 'Converta números para sua representação por extenso em português.',
+    path: 'numero-por-extenso',
+    category: Category.TEXT,
+    icon: NumberToWordsIcon,
+    component: NumberToWords,
+    tags: ['número', 'extenso', 'escrever', 'converter', 'texto'],
+  },
+  {
+    id: 'text-tools',
+    title: 'Letras e Símbolos Personalizados',
+    description: 'Gerador de nicks, letras diferentes, e uma coleção de símbolos para copiar.',
+    path: 'ferramentas-texto',
+    category: Category.TEXT,
+    icon: SparklesIcon,
+    component: TextTools,
+    tags: ['nicks', 'fontes', 'letras', 'símbolos', 'copiar', 'estilo'],
+  },
+  {
     id: 'password-generator',
     title: 'Gerador de Senha Segura',
     description: 'Crie senhas fortes e seguras com opções customizáveis.',
@@ -124,6 +184,36 @@ export const ALL_TOOLS: Tool[] = [
     icon: LockIcon,
     component: PasswordGenerator,
     tags: ['senha', 'password', 'gerador', 'segurança', 'generator'],
+  },
+  {
+    id: 'number-generator',
+    title: 'Sorteador de Números',
+    description: 'Sorteie números aleatórios dentro de um intervalo ou a partir de uma lista.',
+    path: 'sorteador-numeros',
+    category: Category.GENERATORS,
+    icon: HashtagIcon,
+    component: NumberGenerator,
+    tags: ['números', 'aleatório', 'sorteio', 'sorteador', 'random'],
+  },
+   {
+    id: 'lorem-ipsum-generator',
+    title: 'Gerador de Lorem Ipsum',
+    description: 'Crie textos de preenchimento (placeholder) de forma rápida e customizada.',
+    path: 'gerador-lorem-ipsum',
+    category: Category.GENERATORS,
+    icon: DocumentTextIcon,
+    component: LoremIpsumGenerator,
+    tags: ['lorem ipsum', 'texto', 'placeholder', 'design', 'layout'],
+  },
+  {
+    id: 'date-calculator',
+    title: 'Calculadora de Datas',
+    description: 'Calcule a diferença de dias entre datas, some ou subtraia dias.',
+    path: 'calculadora-datas',
+    category: Category.DATES,
+    icon: CalendarIcon,
+    component: DateCalculator,
+    tags: ['data', 'hora', 'dias', 'somar', 'subtrair', 'contador', 'calculadora'],
   },
   {
     id: 'document-generator',
@@ -137,13 +227,13 @@ export const ALL_TOOLS: Tool[] = [
   },
    {
     id: 'document-validator',
-    title: 'Validador de CPF/CNPJ',
-    description: 'Verifique se um número de CPF ou CNPJ é válido matematicamente.',
-    path: 'validador-cpf-cnpj',
+    title: 'Validador de Documentos',
+    description: 'Valide CPF, CNPJ, CNH, PIS, RENAVAM, Título de Eleitor, Cartão de Crédito e mais.',
+    path: 'validador-documentos',
     category: Category.DOCUMENTS,
     icon: ValidationIcon,
     component: DocumentValidator,
-    tags: ['cpf', 'cnpj', 'documento', 'validador', 'receita federal'],
+    tags: ['cpf', 'cnpj', 'cnh', 'pis', 'renavam', 'título', 'cartão', 'ie', 'rg', 'certidão', 'validador'],
   },
   {
     id: 'person-generator',
@@ -186,34 +276,14 @@ export const ALL_TOOLS: Tool[] = [
     tags: ['cartão de crédito', 'conta bancária', 'banco', 'financeiro', 'mock'],
   },
   {
-    id: 'number-generator',
-    title: 'Sorteador de Números',
-    description: 'Sorteie números aleatórios dentro de um intervalo ou a partir de uma lista.',
-    path: 'sorteador-numeros',
-    category: Category.GENERATORS,
-    icon: HashtagIcon,
-    component: NumberGenerator,
-    tags: ['números', 'aleatório', 'sorteio', 'sorteador', 'random'],
-  },
-   {
-    id: 'lorem-ipsum-generator',
-    title: 'Gerador de Lorem Ipsum',
-    description: 'Crie textos de preenchimento (placeholder) de forma rápida e customizada.',
-    path: 'gerador-lorem-ipsum',
-    category: Category.GENERATORS,
-    icon: DocumentTextIcon,
-    component: LoremIpsumGenerator,
-    tags: ['lorem ipsum', 'texto', 'placeholder', 'design', 'layout'],
-  },
-  {
-    id: 'text-tools',
-    title: 'Ferramentas de Texto',
-    description: 'Gerador de nicks, letras diferentes, e uma coleção de símbolos para copiar.',
-    path: 'ferramentas-texto',
-    category: Category.TEXT,
-    icon: SparklesIcon,
-    component: TextTools,
-    tags: ['nicks', 'fontes', 'letras', 'símbolos', 'copiar', 'estilo'],
+    id: 'code-formatter',
+    title: 'Formatador de Código',
+    description: 'Embeleze e formate código (JSON, JS, HTML, CSS) e visualize JSON em árvore.',
+    path: 'formatador-codigo',
+    category: Category.DEV,
+    icon: CodeFormatterIcon,
+    component: CodeFormatter,
+    tags: ['json', 'javascript', 'html', 'css', 'formatar', 'beautify', 'viewer', 'dev'],
   },
   {
     id: 'uuid-generator',
@@ -269,6 +339,12 @@ export const CATEGORIES = [
     icon: LockIcon,
     path: 'geradores',
     description: 'Crie senhas, documentos e outros dados de forma rápida.'
+  },
+  { 
+    name: Category.DATES, 
+    icon: CalendarIcon,
+    path: 'datas-e-horas',
+    description: 'Calcule durações, adicione ou subtraia dias de datas.'
   },
   { 
     name: Category.DOCUMENTS, 
