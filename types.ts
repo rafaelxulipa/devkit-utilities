@@ -6,6 +6,7 @@ export enum Category {
   GENERATORS = "Geradores",
   DOCUMENTS = "Documentos e Validações",
   DEV = "Desenvolvedor",
+  MOCK_DATA = "Dados Fictícios",
 }
 
 export interface Tool {
