@@ -6,6 +6,10 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DevKit Utilidades</title>
+    <meta name="description" content="Ferramentas web gratuitas para desenvolvedores: geradores de CPF/CNPJ, formatadores, validadores, UUID, cores e muito mais." />
+    <meta name="theme-color" content="#7aa2f7" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -34,10 +38,7 @@
         }
       }
     </script>
-    <!-- Google AdSense (substitua 'ca-pub-YOUR_ADSENSE_CLIENT_ID' pelo seu ID de editor) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0079702856690089"
-         crossorigin="anonymous"></script>
-    <!-- Fim do Google AdSense -->
+    <!-- O AdSense é carregado dinamicamente após consentimento do usuário (ver AdConsentContext) -->
     <script type="importmap">
 {
   "imports": {
@@ -56,5 +57,12 @@
   <body class="bg-light-bg dark:bg-dark-bg">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
   </body>
 </html>

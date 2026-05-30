@@ -4,9 +4,11 @@ import { HashRouter, Routes, Route, useParams, Navigate } from 'react-router-dom
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import { ThemeProvider } from './hooks/useTheme';
 import { ToastProvider } from './contexts/ToastContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
+import { AdConsentProvider } from './contexts/AdConsentContext';
 import { ALL_TOOLS, CATEGORIES } from './constants';
 import ToolPage from './features/ToolPage';
 
@@ -31,16 +33,19 @@ const App: React.FC = () => {
     <ThemeProvider>
       <ToastProvider>
         <FavoritesProvider>
-          <HashRouter>
-            <Layout>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/category/:categoryPath" element={<CategoryPageWrapper />} />
-                <Route path="/:toolPath" element={<ToolPageWrapper />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </Layout>
-          </HashRouter>
+          <AdConsentProvider>
+            <HashRouter>
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
+                  <Route path="/category/:categoryPath" element={<CategoryPageWrapper />} />
+                  <Route path="/:toolPath" element={<ToolPageWrapper />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </Layout>
+            </HashRouter>
+          </AdConsentProvider>
         </FavoritesProvider>
       </ToastProvider>
     </ThemeProvider>
