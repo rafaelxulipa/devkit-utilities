@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'devkit-v1';
+const CACHE_NAME = 'devkit-v2';
 
 const STATIC_ASSETS = [
   '/',
