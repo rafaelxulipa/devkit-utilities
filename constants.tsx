@@ -33,6 +33,7 @@ import PassphraseGenerator from './features/PassphraseGenerator';
 import UnitConverter from './features/UnitConverter';
 import RegexTester from './features/RegexTester';
 import CodeMinifier from './features/CodeMinifier';
+import RegexPatternLibrary from './features/RegexPatternLibrary';
 
 const TextIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -136,6 +137,12 @@ const CodeFormatterIcon = ({ className = 'w-6 h-6' }: { className?: string }) =>
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h3m-3 5h3m-3 5h3" />
+    </svg>
+);
+
+const BookIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
     </svg>
 );
 
@@ -453,6 +460,16 @@ export const ALL_TOOLS: Tool[] = [
     icon: BinaryIcon,
     component: EncodingHashTool,
     tags: ['base64', 'hash', 'md5', 'sha1', 'sha256', 'sha512', 'codificar', 'decodificar', 'checksum', 'dev'],
+  },
+  {
+    id: 'regex-pattern-library',
+    title: 'Padrões de Regex Prontos',
+    description: 'Biblioteca de expressões regulares prontas (e-mail, CPF, CNPJ, telefone, CEP, URL, senha forte e mais), com teste ao vivo.',
+    path: 'padroes-regex',
+    category: Category.DEV,
+    icon: BookIcon,
+    component: RegexPatternLibrary,
+    tags: ['regex', 'padrões', 'cpf', 'cnpj', 'e-mail', 'url', 'expressão regular', 'gerador'],
   },
   {
     id: 'code-minifier',
