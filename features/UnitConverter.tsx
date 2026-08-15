@@ -1,6 +1,8 @@
 
 import React, { useState, useMemo } from 'react';
-import { unitCategories, convert } from '../utils/unitConverter';
+import { unitCategories, convert, isBelowAbsoluteZero } from '../utils/unitConverter';
+
+const precisionOptions = [2, 4, 6, 8, 10];
 
 const selectClass = 'w-full p-2 rounded-md bg-light-bg dark:bg-dark-bg border border-light-secondary/20 dark:border-dark-secondary/20 focus:ring-2 focus:ring-light-primary dark:focus:ring-dark-primary focus:outline-none transition-colors';
 const inputClass = selectClass;
@@ -19,6 +21,7 @@ const UnitConverter: React.FC = () => {
     const [fromUnit, setFromUnit] = useState(category.units[0].id);
     const [toUnit, setToUnit] = useState(category.units[1].id);
     const [value, setValue] = useState('1');
+    const [precision, setPrecision] = useState(6);
 
     const handleCategoryChange = (newCategoryId: string) => {
         const newCategory = unitCategories.find(c => c.id === newCategoryId)!;
@@ -32,11 +35,15 @@ const UnitConverter: React.FC = () => {
         setToUnit(fromUnit);
     };
 
+    const numericValue = Number(value);
+    const isValidInput = value.trim() !== '' && !Number.isNaN(numericValue);
+
     const result = useMemo(() => {
-        const numericValue = Number(value);
-        if (value.trim() === '' || Number.isNaN(numericValue)) return null;
+        if (!isValidInput) return null;
         return convert(numericValue, fromUnit, toUnit, category);
-    }, [value, fromUnit, toUnit, category]);
+    }, [isValidInput, numericValue, fromUnit, toUnit, category]);
+
+    const belowAbsoluteZero = category.type === 'temperature' && isValidInput && isBelowAbsoluteZero(numericValue, fromUnit);
 
     return (
         <div className="space-y-6 max-w-lg mx-auto">
@@ -77,11 +84,24 @@ const UnitConverter: React.FC = () => {
                 </div>
                 <div>
                     <label className={labelClass}>Resultado</label>
-                    <div className="p-2 rounded-md bg-light-bg dark:bg-dark-bg border border-light-secondary/20 dark:border-dark-secondary/20 font-mono text-lg text-light-primary dark:text-dark-primary">
-                        {result === null ? '—' : Number(result.toFixed(6)).toString()}
+                    <div className="p-2 rounded-md bg-light-bg dark:bg-dark-bg border border-light-secondary/20 dark:border-dark-secondary/20 font-mono text-lg text-light-primary dark:text-dark-primary break-all">
+                        {result === null ? '—' : Number(result.toFixed(precision)).toString()}
                     </div>
                 </div>
             </div>
+
+            <div className="flex items-center justify-center gap-2">
+                <label className="text-sm text-light-secondary dark:text-dark-secondary" htmlFor="precision-select">Casas decimais:</label>
+                <select id="precision-select" value={precision} onChange={e => setPrecision(Number(e.target.value))} className={selectClass + ' w-auto'}>
+                    {precisionOptions.map(p => <option key={p} value={p}>{p}</option>)}
+                </select>
+            </div>
+
+            {belowAbsoluteZero && (
+                <p className="text-center text-sm font-semibold text-red-600 dark:text-red-400">
+                    Atenção: essa temperatura está abaixo do zero absoluto (0 K), fisicamente impossível.
+                </p>
+            )}
         </div>
     );
 };

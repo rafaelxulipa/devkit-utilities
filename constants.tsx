@@ -460,7 +460,7 @@ export const ALL_TOOLS: Tool[] = [
   {
     id: 'unit-converter',
     title: 'Conversor de Unidades',
-    description: 'Converta comprimento, peso, volume e temperatura entre unidades diferentes.',
+    description: 'Converta comprimento, peso, volume, temperatura, área, velocidade, tempo, dados digitais, pressão e energia.',
     path: 'conversor-unidades',
     category: Category.DEV,
     icon: ScaleIcon,
