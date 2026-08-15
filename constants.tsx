@@ -32,6 +32,7 @@ import JwtDecoder from './features/JwtDecoder';
 import PassphraseGenerator from './features/PassphraseGenerator';
 import UnitConverter from './features/UnitConverter';
 import RegexTester from './features/RegexTester';
+import CodeMinifier from './features/CodeMinifier';
 
 const TextIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -135,6 +136,12 @@ const CodeFormatterIcon = ({ className = 'w-6 h-6' }: { className?: string }) =>
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h3m-3 5h3m-3 5h3" />
+    </svg>
+);
+
+const CompressIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 14h4m0 0v4m0-4l-5 5m17-5h-4m0 0v4m0-4l5 5M4 10h4m0 0V6m0 4L3 5m18 5h-4m0 0V6m0 4l5-5" />
     </svg>
 );
 
@@ -446,6 +453,16 @@ export const ALL_TOOLS: Tool[] = [
     icon: BinaryIcon,
     component: EncodingHashTool,
     tags: ['base64', 'hash', 'md5', 'sha1', 'sha256', 'sha512', 'codificar', 'decodificar', 'checksum', 'dev'],
+  },
+  {
+    id: 'code-minifier',
+    title: 'Minificador de Código',
+    description: 'Minifique JSON, JavaScript, HTML e CSS, reduzindo o tamanho do arquivo.',
+    path: 'minificador-codigo',
+    category: Category.DEV,
+    icon: CompressIcon,
+    component: CodeMinifier,
+    tags: ['minificador', 'minify', 'json', 'javascript', 'html', 'css', 'compactar', 'dev'],
   },
   {
     id: 'regex-tester',
