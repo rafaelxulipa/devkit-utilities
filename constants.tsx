@@ -31,6 +31,7 @@ import CsvJsonConverter from './features/CsvJsonConverter';
 import JwtDecoder from './features/JwtDecoder';
 import PassphraseGenerator from './features/PassphraseGenerator';
 import UnitConverter from './features/UnitConverter';
+import RegexTester from './features/RegexTester';
 
 const TextIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -134,6 +135,12 @@ const CodeFormatterIcon = ({ className = 'w-6 h-6' }: { className?: string }) =>
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h3m-3 5h3m-3 5h3" />
+    </svg>
+);
+
+const RegexIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h.01M15 12h.01M12 9v6m5.5-3a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0zM4 4l2 2m14-2l-2 2M4 20l2-2m14 2l-2-2" />
     </svg>
 );
 
@@ -439,6 +446,16 @@ export const ALL_TOOLS: Tool[] = [
     icon: BinaryIcon,
     component: EncodingHashTool,
     tags: ['base64', 'hash', 'md5', 'sha1', 'sha256', 'sha512', 'codificar', 'decodificar', 'checksum', 'dev'],
+  },
+  {
+    id: 'regex-tester',
+    title: 'Testador de Regex',
+    description: 'Teste expressões regulares contra um texto, com destaque das ocorrências e grupos capturados.',
+    path: 'testador-regex',
+    category: Category.DEV,
+    icon: RegexIcon,
+    component: RegexTester,
+    tags: ['regex', 'expressão regular', 'testador', 'regexp', 'dev'],
   },
   {
     id: 'unit-converter',
