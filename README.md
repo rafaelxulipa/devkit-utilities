@@ -20,6 +20,7 @@
     <img src="https://img.shields.io/github/last-commit/rafaelxulipa/devkit-utilities?style=for-the-badge&color=c0caf5&logo=git" alt="Last Commit">
     <img src="https://img.shields.io/badge/React-18.2.0-blue?style=for-the-badge&logo=react" alt="React">
     <img src="https://img.shields.io/badge/TypeScript-informational?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+    <img src="https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
   </p>
 </div>
 
@@ -27,6 +28,7 @@
   <a href="#-sobre-o-projeto">Sobre</a> •
   <a href="#-funcionalidades">Funcionalidades</a> •
   <a href="#-tecnologias">Tecnologias</a> •
+  <a href="#-estrutura-do-projeto">Estrutura</a> •
   <a href="#-como-executar">Como Executar</a> •
   <a href="#-como-contribuir">Contribuir</a> •
   <a href="#-licença">Licença</a>
@@ -41,83 +43,128 @@
 
 ## 🚀 Sobre o Projeto
 
-O **DevKit Utilidades** foi criado para ser uma central de ferramentas práticas e de fácil acesso, eliminando a necessidade de procurar por diversas soluções em sites diferentes. A aplicação foi construída com tecnologias web modernas, sem a necessidade de um processo de *build*, utilizando `importmaps` para carregar módulos ES diretamente no navegador. Isso resulta em um ambiente de desenvolvimento simplificado e uma performance excelente.
+O **DevKit Utilidades** foi criado para ser uma central de ferramentas práticas e de fácil acesso,
+eliminando a necessidade de procurar por diversas soluções em sites diferentes. É uma aplicação
+**100% client-side**: todos os geradores, validadores e formatadores rodam inteiramente no seu
+navegador — nenhum dado que você digita é enviado a um servidor. O projeto é construído com
+React + TypeScript, empacotado com Vite e estilizado com Tailwind CSS, e funciona também como um
+**PWA instalável** (com service worker e suporte offline básico para o app shell).
 
 ## ✨ Funcionalidades
 
-O projeto conta com uma vasta gama de ferramentas, organizadas nas seguintes categorias:
+O projeto conta com **18 ferramentas**, organizadas em 6 categorias, além de recursos transversais
+como busca, favoritos e tema claro/escuro.
 
--   **📝 Texto e Escrita:**
-    -   Contador de Palavras e Caracteres
-    -   Gerador de Lorem Ipsum
-    -   Ferramentas de Texto (Gerador de Nicks, Letras Diferentes, Símbolos)
+### 📝 Texto e Escrita
+- **Contador de Palavras e Caracteres** — conta palavras, caracteres, sentenças e parágrafos.
+- **Super Ferramenta de Texto** — 9 utilitários num só lugar: maiúsculas/minúsculas/title case,
+  ordenar linhas, inverter texto, remover acentos, contar ocorrências, gerenciar quebras de linha,
+  dividir texto por delimitador, converter para HTML e corretor ortográfico (via `spellcheck`
+  nativo do navegador).
+- **Número por Extenso** — converte números para sua escrita por extenso em português (até
+  quatrilhões, com tratamento de negativos e casos como "cem" vs. "cento").
+- **Letras e Símbolos Personalizados** — gerador de nicks, conversor para letras estilizadas
+  (negrito, itálico, círculo — via tabela Unicode) e uma coleção de símbolos prontos para copiar.
 
--   **🔧 Geradores:**
-    -   Gerador de Senha Segura
-    -   Sorteador de Números
+### 🔧 Geradores
+- **Gerador de Senha Segura** — comprimento ajustável (8–64) e opções de maiúsculas, números e
+  símbolos.
+- **Sorteador de Números** — sorteia números aleatórios em um intervalo, com ou sem repetição, e
+  mantém histórico dos últimos sorteios.
+- **Gerador de Lorem Ipsum** — gera parágrafos de texto de preenchimento com quantidade ajustável.
+- **Gerador de UUID** — gera UUID v4 usando `crypto.randomUUID()` (com fallback para navegadores
+  antigos).
+- **Gerador de Imagem Placeholder** — monta URLs de imagens de preenchimento (via picsum.photos)
+  com largura e altura customizadas.
 
--   **📄 Documentos e Validações:**
-    -   Gerador de Documentos (CPF, CNPJ, RG, CNH, Título de Eleitor, PIS/PASEP)
-    -   Validador de CPF/CNPJ
+### 📅 Datas e Horas
+- **Calculadora de Datas** — diferença entre duas datas, somar ou subtrair dias de uma data.
 
--   **🎭 Dados Fictícios:**
-    -   Gerador de Pessoas
-    -   Gerador de Empresas
-    -   Gerador de Veículos
-    -   Gerador de Dados Financeiros
+### 📄 Documentos e Validações
+- **Gerador de Documentos** — CPF, CNPJ, **CNPJ Alfanumérico** (novo formato da Receita Federal,
+  IN RFB nº 2.229/2024, com letras A-Z e dígitos verificadores calculados via módulo 11 sobre
+  valores ASCII), RG, CNH, Título de Eleitor e PIS/PASEP — todos com dígitos verificadores válidos.
+- **Validador de Documentos** — valida CPF, CNPJ, CNPJ Alfanumérico, CNH, PIS/PASEP, RENAVAM,
+  Título de Eleitor, Cartão de Crédito (Luhn), Inscrição Estadual (SP), RG (SP) e Certidão Civil.
 
--   **💻 Desenvolvedor:**
-    -   Gerador de UUID
-    -   Gerador de Paleta de Cores
-    -   Seletor de Cores (Conta-gotas)
-    -   Gerador de Imagem Placeholder
+### 🎭 Dados Fictícios
+- **Gerador de Pessoas** — nome, CPF e RG fictícios e válidos.
+- **Gerador de Empresas** — nome, CNPJ e Inscrição Estadual fictícios.
+- **Gerador de Veículos** — placa no padrão Mercosul e RENAVAM.
+- **Gerador de Dados Financeiros** — número de cartão de crédito (válido por Luhn) e conta
+  bancária fictícia.
 
--   **💡 Outras Funcionalidades:**
-    -   Tema Claro e Escuro
-    -   Sistema de Favoritos
-    -   Design totalmente responsivo
-    -   Busca inteligente por ferramentas
-    -   Notificações (Toasts) para feedback ao usuário
+### 💻 Desenvolvedor
+- **Formatador de Código** — formata JSON, JavaScript, HTML e CSS (via Prettier carregado sob
+  demanda) e mostra o JSON também em um visualizador de árvore navegável.
+- **Gerador de Paleta de Cores** — harmonias análoga, monocromática, tríade, complementar e
+  quadrada a partir de uma cor base.
+- **Seletor de Cores (Conta-gotas)** — captura cor de qualquer ponto de uma imagem (upload ou URL)
+  ou escolhe manualmente, exportando em HEX, RGB e HSL.
+
+### 💡 Recursos Transversais
+- Tema claro e escuro, com detecção da preferência do sistema.
+- Sistema de Favoritos (persistido no navegador).
+- Busca inteligente por título, descrição e tags, direto na home.
+- Design totalmente responsivo.
+- Notificações (toasts) para feedback de ações como copiar.
+- PWA instalável, com service worker para cache do app shell.
+- Consentimento de cookies/anúncios: o script do Google AdSense só é carregado depois que o
+  usuário aceita o banner.
 
 ## 🛠️ Tecnologias
 
-Este projeto foi desenvolvido utilizando as seguintes tecnologias:
+- [**React 18**](https://react.dev/) — biblioteca para construir a interface.
+- [**TypeScript**](https://www.typescriptlang.org/) — tipagem estática.
+- [**Vite 6**](https://vitejs.dev/) — build tool e servidor de desenvolvimento.
+- [**Tailwind CSS**](https://tailwindcss.com/) — estilização, com paleta de cores customizada.
+- [**React Router DOM**](https://reactrouter.com/) (`HashRouter`) — roteamento client-side.
+- **Service Worker + Web App Manifest** — suporte a instalação como PWA.
 
--   [**React**](https://react.dev/) - Biblioteca para construir interfaces de usuário.
--   [**TypeScript**](https://www.typescriptlang.org/) - Superset do JavaScript que adiciona tipagem estática.
--   [**Tailwind CSS**](https://tailwindcss.com/) - Framework CSS para estilização rápida e moderna.
--   **ES Modules & Import Maps** - Carregamento de módulos nativo no navegador, sem a necessidade de *bundlers*.
--   **React Router DOM** - Para gerenciamento de rotas.
+## 📁 Estrutura do Projeto
+
+```
+devkit-utilities/
+├── App.tsx                # Rotas (HashRouter)
+├── constants.tsx          # Catálogo de ferramentas (ALL_TOOLS) e categorias
+├── types.ts                # Tipos Tool / Category
+├── features/                # Um componente de UI por ferramenta
+├── utils/                   # Lógica pura (geradores, validadores, formatadores)
+├── pages/                   # HomePage, CategoryPage, PrivacyPolicyPage
+├── contexts/                 # Theme, Favorites, Toast, AdConsent
+├── components/               # Componentes de UI reutilizáveis (Button, Card, Header...)
+├── hooks/                    # useTheme, useCopyToClipboard
+└── public/                   # manifest.json, sw.js, favicon
+```
 
 ## 🏁 Como Executar
 
-Por não possuir um processo de *build*, executar o projeto localmente é muito simples.
-
-**Pré-requisitos:**
--   Um navegador web moderno.
--   Um servidor web estático local.
-
-**Passos:**
+**Pré-requisitos:** Node.js 18+.
 
 1.  **Clone o repositório:**
     ```bash
     git clone https://github.com/rafaelxulipa/devkit-utilities.git
-    ```
-
-2.  **Navegue até o diretório:**
-    ```bash
     cd devkit-utilities
     ```
 
-3.  **Inicie um servidor local:**
-    A maneira mais fácil é usando a extensão **Live Server** no Visual Studio Code.
-    
-    Alternativamente, você pode usar um servidor via linha de comando:
+2.  **Instale as dependências:**
     ```bash
-    npx serve
+    npm install
     ```
-    
-    Após iniciar o servidor, ele fornecerá um endereço local (como `http://localhost:3000`) para você abrir no navegador.
+
+3.  **Inicie o servidor de desenvolvimento:**
+    ```bash
+    npm run dev
+    ```
+    A aplicação estará disponível em `http://localhost:3000` (com hot-reload).
+
+**Outros scripts disponíveis:**
+```bash
+npm run build     # build de produção (pasta dist/)
+npm run preview   # serve o build de produção localmente
+```
+
+O projeto está pronto para deploy como SPA estática (ex: Vercel — veja `vercel.json`).
 
 ## 🤝 Como Contribuir
 
@@ -139,5 +186,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ---
 <div align="center">
-  Feito com ❤️ por Rafael "Xulipa"
+  Feito com ❤️ por Otávio Rafael, da Orlam Tech
 </div>
