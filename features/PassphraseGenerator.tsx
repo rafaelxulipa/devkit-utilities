@@ -107,11 +107,6 @@ const PassphraseGenerator: React.FC = () => {
             <Button onClick={handleGenerate} icon={<RefreshIcon />}>
                 Gerar Nova Senha
             </Button>
-
-            <p className="text-xs text-center text-light-secondary dark:text-dark-secondary">
-                Gerada com crypto.getRandomValues (RNG criptograficamente seguro) a partir de uma lista de {' '}
-                palavras em português — mais fácil de memorizar e digitar que uma senha aleatória.
-            </p>
         </div>
     );
 };

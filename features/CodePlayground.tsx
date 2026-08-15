@@ -118,10 +118,6 @@ const CodePlayground: React.FC = () => {
                     )}
                 </div>
             </div>
-
-            <p className="text-xs text-center text-light-secondary dark:text-dark-secondary">
-                O preview roda em um iframe isolado (sandbox), sem acesso ao restante da página. alert/confirm/prompt ficam bloqueados.
-            </p>
         </div>
     );
 };

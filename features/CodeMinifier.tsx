@@ -122,10 +122,6 @@ const CodeMinifier: React.FC = () => {
                     {' '}(<span className={savings > 0 ? 'text-green-600 dark:text-green-400 font-semibold' : ''}>{savings}% menor</span>)
                 </p>
             )}
-
-            <p className="text-xs text-center text-light-secondary dark:text-dark-secondary">
-                JavaScript, CSS e HTML são minificados via bibliotecas carregadas sob demanda (requer conexão com a internet).
-            </p>
         </div>
     );
 };
