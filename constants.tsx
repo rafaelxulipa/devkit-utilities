@@ -428,12 +428,12 @@ export const ALL_TOOLS: Tool[] = [
   {
     id: 'code-formatter',
     title: 'Formatador de Código',
-    description: 'Embeleze e formate código (JSON, JS, HTML, CSS, SQL) e visualize JSON em árvore.',
+    description: 'Embeleze e formate JSON, JavaScript, TypeScript, HTML, CSS/SCSS/LESS, Markdown, YAML, GraphQL, XML, PHP e SQL.',
     path: 'formatador-codigo',
     category: Category.DEV,
     icon: CodeFormatterIcon,
     component: CodeFormatter,
-    tags: ['json', 'javascript', 'html', 'css', 'sql', 'formatar', 'beautify', 'indentar', 'viewer', 'dev'],
+    tags: ['json', 'javascript', 'typescript', 'html', 'css', 'scss', 'less', 'markdown', 'yaml', 'graphql', 'xml', 'php', 'sql', 'formatar', 'beautify', 'indentar', 'viewer', 'dev'],
   },
   {
     id: 'uuid-generator',
