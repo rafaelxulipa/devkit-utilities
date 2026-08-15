@@ -9,10 +9,11 @@ interface ValidationResult {
     message: string;
 }
 
-type DocumentType = 
-    | 'cpf' 
-    | 'cnpj' 
-    | 'cnh' 
+type DocumentType =
+    | 'cpf'
+    | 'cnpj'
+    | 'cnpj_alfanumerico'
+    | 'cnh'
     | 'pis' 
     | 'renavam' 
     | 'titulo' 
@@ -24,6 +25,7 @@ type DocumentType =
 const documentOptions: { id: DocumentType; label: string, placeholder: string }[] = [
     { id: 'cpf', label: 'CPF', placeholder: 'Digite o CPF' },
     { id: 'cnpj', label: 'CNPJ', placeholder: 'Digite o CNPJ' },
+    { id: 'cnpj_alfanumerico', label: 'CNPJ Alfanumérico', placeholder: 'Digite o CNPJ Alfanumérico' },
     { id: 'cnh', label: 'CNH', placeholder: 'Digite a CNH' },
     { id: 'pis', label: 'PIS/PASEP', placeholder: 'Digite o PIS/PASEP' },
     { id: 'renavam', label: 'RENAVAM', placeholder: 'Digite o RENAVAM' },
@@ -53,6 +55,10 @@ const DocumentValidator: React.FC = () => {
             case 'cnpj':
                 isValid = Validators.validateCNPJ(cleanDoc);
                 message = isValid ? 'CNPJ válido!' : 'CNPJ inválido.';
+                break;
+            case 'cnpj_alfanumerico':
+                isValid = Validators.validateCNPJAlfanumerico(document);
+                message = isValid ? 'CNPJ Alfanumérico válido!' : 'CNPJ Alfanumérico inválido.';
                 break;
             case 'cnh':
                 isValid = Validators.validateCNH(cleanDoc);

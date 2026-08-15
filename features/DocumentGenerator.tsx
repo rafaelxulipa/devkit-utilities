@@ -4,7 +4,7 @@ import Button from '../components/Button';
 import Checkbox from '../components/Checkbox';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
 import { useToast } from '../contexts/ToastContext';
-import { generateCPF, generateCNPJ, generateRG, generateCNH, generateTituloEleitor, generatePIS } from '../utils/documentGenerators';
+import { generateCPF, generateCNPJ, generateCNPJAlfanumerico, generateRG, generateCNH, generateTituloEleitor, generatePIS } from '../utils/documentGenerators';
 
 const CopyIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -12,11 +12,12 @@ const CopyIcon = () => (
     </svg>
 );
 
-type DocumentType = 'cpf' | 'cnpj' | 'rg' | 'cnh' | 'titulo' | 'pis';
+type DocumentType = 'cpf' | 'cnpj' | 'cnpj_alfanumerico' | 'rg' | 'cnh' | 'titulo' | 'pis';
 
 const documentOptions: { id: DocumentType; label: string }[] = [
     { id: 'cpf', label: 'CPF' },
     { id: 'cnpj', label: 'CNPJ' },
+    { id: 'cnpj_alfanumerico', label: 'CNPJ Alfanumérico' },
     { id: 'rg', label: 'RG' },
     { id: 'cnh', label: 'CNH' },
     { id: 'titulo', label: 'Título de Eleitor' },
@@ -34,6 +35,7 @@ const DocumentGenerator: React.FC = () => {
         switch (type) {
             case 'cpf': generatedDoc = generateCPF(isMasked); break;
             case 'cnpj': generatedDoc = generateCNPJ(isMasked); break;
+            case 'cnpj_alfanumerico': generatedDoc = generateCNPJAlfanumerico(isMasked); break;
             case 'rg': generatedDoc = generateRG(isMasked); break;
             case 'cnh': generatedDoc = generateCNH(isMasked); break;
             case 'titulo': generatedDoc = generateTituloEleitor(isMasked); break;

@@ -218,12 +218,12 @@ export const ALL_TOOLS: Tool[] = [
   {
     id: 'document-generator',
     title: 'Gerador de Documentos',
-    description: 'Gere CPF, CNPJ, RG, CNH, Título de Eleitor e PIS/PASEP válidos.',
+    description: 'Gere CPF, CNPJ, CNPJ Alfanumérico, RG, CNH, Título de Eleitor e PIS/PASEP válidos.',
     path: 'gerador-documentos',
     category: Category.DOCUMENTS,
     icon: DocumentIcon,
     component: DocumentGenerator,
-    tags: ['cpf', 'cnpj', 'rg', 'cnh', 'título de eleitor', 'pis', 'pasep', 'documento', 'gerador'],
+    tags: ['cpf', 'cnpj', 'cnpj alfanumérico', 'rg', 'cnh', 'título de eleitor', 'pis', 'pasep', 'documento', 'gerador'],
   },
    {
     id: 'document-validator',

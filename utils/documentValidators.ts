@@ -38,6 +38,29 @@ export const validateCNPJ = (cnpj: string): boolean => {
     return d2 === parseInt(cleanCNPJ[13], 10);
 };
 
+// --- CNPJ Alfanumérico Validator (novo formato, IN RFB nº 2.229/2024) ---
+const charToCnpjValue = (char: string): number => char.charCodeAt(0) - 48;
+
+const mod11Alfanumerico = (chars: string, weights: number[]): number => {
+    const sum = chars.split('').reduce((acc, char, index) => acc + charToCnpjValue(char) * weights[index % weights.length], 0);
+    const remainder = sum % 11;
+    return remainder < 2 ? 0 : 11 - remainder;
+};
+
+export const validateCNPJAlfanumerico = (cnpj: string): boolean => {
+    const cleanCNPJ = cnpj.toUpperCase().replace(/[^0-9A-Z]/g, '');
+    if (cleanCNPJ.length !== 14 || /^(.)\1+$/.test(cleanCNPJ)) return false;
+    if (!/^\d{2}$/.test(cleanCNPJ.slice(12))) return false; // dígitos verificadores são sempre numéricos
+
+    const firstTwelve = cleanCNPJ.substring(0, 12);
+    const d1 = mod11Alfanumerico(firstTwelve, [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+    if (d1 !== parseInt(cleanCNPJ[12], 10)) return false;
+
+    const firstThirteen = cleanCNPJ.substring(0, 13);
+    const d2 = mod11Alfanumerico(firstThirteen, [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+    return d2 === parseInt(cleanCNPJ[13], 10);
+};
+
 // --- Luhn Algorithm (Credit Card) Validator ---
 export const validateLuhn = (ccNumber: string): boolean => {
     const cleanNumber = clean(ccNumber);

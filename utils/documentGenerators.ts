@@ -60,6 +60,30 @@ export const generateCNPJ = (masked: boolean = true): string => {
     return masked ? applyMask(cnpj, '##.###.###/####-##') : cnpj;
 };
 
+// --- CNPJ Alfanumérico (novo formato da Receita Federal, IN RFB nº 2.229/2024) ---
+// Posições 1-12: alfanuméricas (raiz + ordem). Posições 13-14: dígitos verificadores, sempre numéricos.
+// Cada caractere é convertido pelo valor ASCII menos 48 ('0'-'9' -> 0-9, 'A'-'Z' -> 17-42) antes do módulo 11.
+const cnpjAlfanumericoChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const randomCnpjAlfanumericoChar = (): string => randomFrom(cnpjAlfanumericoChars.split(''));
+
+const charToCnpjValue = (char: string): number => char.charCodeAt(0) - 48;
+
+const calculateCnpjAlfanumericoDigit = (chars: string[]): number => {
+    const weights = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    const relevantWeights = weights.slice(weights.length - chars.length);
+    const sum = chars.reduce((acc, char, index) => acc + charToCnpjValue(char) * relevantWeights[index], 0);
+    const remainder = sum % 11;
+    return remainder < 2 ? 0 : 11 - remainder;
+};
+
+export const generateCNPJAlfanumerico = (masked: boolean = true): string => {
+    const baseChars: string[] = Array.from({ length: 12 }, () => randomCnpjAlfanumericoChar());
+    const firstDigit = calculateCnpjAlfanumericoDigit(baseChars);
+    const secondDigit = calculateCnpjAlfanumericoDigit([...baseChars, String(firstDigit)]);
+    const cnpj = [...baseChars, firstDigit, secondDigit].join('');
+    return masked ? applyMask(cnpj, '##.###.###/####-##') : cnpj;
+};
+
 // --- RG (São Paulo) ---
 export const generateRG = (masked: boolean = true): string => {
     const base = Array.from({ length: 8 }, () => random());
