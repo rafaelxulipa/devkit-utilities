@@ -23,6 +23,7 @@ import CodeFormatter from './features/CodeFormatter';
 import DateCalculator from './features/DateCalculator';
 import EncodingHashTool from './features/EncodingHashTool';
 import CltCalculator from './features/CltCalculator';
+import TimestampConverter from './features/TimestampConverter';
 
 const TextIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -129,6 +130,12 @@ const CodeFormatterIcon = ({ className = 'w-6 h-6' }: { className?: string }) =>
     </svg>
 );
 
+const ClockIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+);
+
 const BriefcaseIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m-2 0h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2z" />
@@ -228,6 +235,16 @@ export const ALL_TOOLS: Tool[] = [
     icon: CalendarIcon,
     component: DateCalculator,
     tags: ['data', 'hora', 'dias', 'somar', 'subtrair', 'contador', 'calculadora'],
+  },
+  {
+    id: 'timestamp-converter',
+    title: 'Conversor de Timestamp Unix',
+    description: 'Converta timestamp Unix para data (em vários fusos horários) e vice-versa.',
+    path: 'conversor-timestamp',
+    category: Category.DATES,
+    icon: ClockIcon,
+    component: TimestampConverter,
+    tags: ['timestamp', 'unix', 'data', 'fuso horário', 'epoch', 'conversor'],
   },
   {
     id: 'document-generator',
