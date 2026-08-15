@@ -2,13 +2,14 @@
 import React, { useState, useCallback } from 'react';
 import Button from '../components/Button';
 
-type Language = 'json' | 'javascript' | 'html' | 'css';
+type Language = 'json' | 'javascript' | 'html' | 'css' | 'sql';
 
 const languageOptions: { id: Language, label: string, parser: string }[] = [
     { id: 'json', label: 'JSON', parser: 'json' },
     { id: 'javascript', label: 'JavaScript', parser: 'babel' },
     { id: 'html', label: 'HTML', parser: 'html' },
     { id: 'css', label: 'CSS', parser: 'css' },
+    { id: 'sql', label: 'SQL', parser: 'sql' },
 ];
 
 const JsonNode: React.FC<{ data: any, nodeKey?: string }> = ({ data, nodeKey }) => {
@@ -74,6 +75,12 @@ const CodeFormatter: React.FC = () => {
         setError('');
         setLoading(true);
         try {
+            if (language === 'sql') {
+                const { format } = await import('https://esm.sh/sql-formatter@15.4.0');
+                setOutput(format(input, { language: 'sql', tabWidth: 2, keywordCase: 'upper' }));
+                return;
+            }
+
             const prettier = await import('https://esm.sh/prettier@3.2.5/standalone');
             let plugins;
             const selectedLanguage = languageOptions.find(l => l.id === language);
@@ -94,10 +101,15 @@ const CodeFormatter: React.FC = () => {
                     const postcss = await import('https://esm.sh/prettier@3.2.5/plugins/postcss');
                     plugins = [postcss.default];
                     break;
-                 case 'json':
-                    // JSON parser is built-in
-                    plugins = [];
+                case 'json': {
+                    // O parser "json" do Prettier standalone vive no plugin babel (+ estree).
+                    const [jsonBabel, jsonEstree] = await Promise.all([
+                        import('https://esm.sh/prettier@3.2.5/plugins/babel'),
+                        import('https://esm.sh/prettier@3.2.5/plugins/estree'),
+                    ]);
+                    plugins = [jsonBabel.default, jsonEstree.default];
                     break;
+                }
                 default:
                     plugins = [];
             }
