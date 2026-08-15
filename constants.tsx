@@ -24,6 +24,7 @@ import DateCalculator from './features/DateCalculator';
 import EncodingHashTool from './features/EncodingHashTool';
 import CltCalculator from './features/CltCalculator';
 import TimestampConverter from './features/TimestampConverter';
+import QrCodeGenerator from './features/QrCodeGenerator';
 
 const TextIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -130,6 +131,12 @@ const CodeFormatterIcon = ({ className = 'w-6 h-6' }: { className?: string }) =>
     </svg>
 );
 
+const QrCodeIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 2h2m-2 4h6v-6h-4m4 0h-2" />
+    </svg>
+);
+
 const ClockIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -217,6 +224,16 @@ export const ALL_TOOLS: Tool[] = [
     tags: ['números', 'aleatório', 'sorteio', 'sorteador', 'random'],
   },
    {
+    id: 'qr-code-generator',
+    title: 'Gerador de QR Code',
+    description: 'Crie QR Codes a partir de texto ou links, com tamanho e correção de erro ajustáveis.',
+    path: 'gerador-qr-code',
+    category: Category.GENERATORS,
+    icon: QrCodeIcon,
+    component: QrCodeGenerator,
+    tags: ['qr code', 'qrcode', 'gerador', 'link', 'código'],
+  },
+  {
     id: 'lorem-ipsum-generator',
     title: 'Gerador de Lorem Ipsum',
     description: 'Crie textos de preenchimento (placeholder) de forma rápida e customizada.',
