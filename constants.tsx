@@ -26,6 +26,7 @@ import CltCalculator from './features/CltCalculator';
 import TimestampConverter from './features/TimestampConverter';
 import QrCodeGenerator from './features/QrCodeGenerator';
 import CepLookup from './features/CepLookup';
+import TextDiff from './features/TextDiff';
 
 const TextIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -129,6 +130,12 @@ const CodeFormatterIcon = ({ className = 'w-6 h-6' }: { className?: string }) =>
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h3m-3 5h3m-3 5h3" />
+    </svg>
+);
+
+const DiffIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m-12 5h12m-12 5h8M4 7h.01M4 12h.01M4 17h.01" />
     </svg>
 );
 
@@ -400,6 +407,16 @@ export const ALL_TOOLS: Tool[] = [
     icon: BinaryIcon,
     component: EncodingHashTool,
     tags: ['base64', 'hash', 'md5', 'sha1', 'sha256', 'sha512', 'codificar', 'decodificar', 'checksum', 'dev'],
+  },
+  {
+    id: 'text-diff',
+    title: 'Comparador de Textos',
+    description: 'Compare dois textos linha a linha e veja o que foi adicionado, removido ou mantido.',
+    path: 'comparador-textos',
+    category: Category.DEV,
+    icon: DiffIcon,
+    component: TextDiff,
+    tags: ['diff', 'comparar', 'texto', 'comparador', 'alterações'],
   },
   {
     id: 'image-placeholder-generator',
