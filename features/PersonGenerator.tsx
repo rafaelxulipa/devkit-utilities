@@ -22,6 +22,9 @@ interface PersonData {
     nome: string;
     cpf: string;
     rg: string;
+    email: string;
+    telefone: string;
+    endereco: string;
 }
 
 const PersonGenerator: React.FC = () => {
@@ -45,10 +48,10 @@ const PersonGenerator: React.FC = () => {
     });
 
     const DataRow: React.FC<{ label: string; value: string }> = ({ label, value }) => (
-        <div className="flex items-center justify-between p-3 bg-light-bg dark:bg-dark-bg rounded-md">
-            <span className="font-semibold text-light-secondary dark:text-dark-secondary">{label}:</span>
-            <div className="flex items-center space-x-2">
-                <span className="font-mono text-sm sm:text-base text-light-text dark:text-dark-text">{value}</span>
+        <div className="flex items-center justify-between gap-3 p-3 bg-light-bg dark:bg-dark-bg rounded-md">
+            <span className="font-semibold text-light-secondary dark:text-dark-secondary shrink-0">{label}:</span>
+            <div className="flex items-center space-x-2 min-w-0">
+                <span className="font-mono text-sm sm:text-base text-light-text dark:text-dark-text text-right break-words">{value}</span>
                 <button 
                     onClick={() => handleCopy(value, label)} 
                     className="p-1 rounded text-light-secondary hover:text-light-primary dark:text-dark-secondary dark:hover:text-dark-primary"
@@ -67,6 +70,9 @@ const PersonGenerator: React.FC = () => {
                     <DataRow label="Nome" value={person.nome} />
                     <DataRow label="CPF" value={person.cpf} />
                     <DataRow label="RG" value={person.rg} />
+                    <DataRow label="E-mail" value={person.email} />
+                    <DataRow label="Telefone" value={person.telefone} />
+                    <DataRow label="Endereço" value={person.endereco} />
                 </div>
             )}
              <div className="flex justify-center">

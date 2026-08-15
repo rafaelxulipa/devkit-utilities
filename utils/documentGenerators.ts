@@ -226,11 +226,57 @@ const firstNames = ["Miguel", "Arthur", "Gael", "Heitor", "Theo", "Davi", "Gabri
 const lastNames = ["Silva", "Santos", "Oliveira", "Souza", "Rodrigues", "Ferreira", "Alves", "Pereira", "Lima", "Gomes", "Costa", "Ribeiro", "Martins", "Carvalho", "Almeida"];
 const companySuffixes = ["Ltda", "S.A.", "e Associados", "Soluções Digitais", "Group", "Consultoria"];
 
-export const generatePerson = (masked: boolean) => ({
-    nome: `${randomFrom(firstNames)} ${randomFrom(lastNames)}`,
-    cpf: generateCPF(masked),
-    rg: generateRG(masked),
-});
+// --- E-mail, Telefone e Endereço fictícios ---
+const emailDomains = ["gmail.com", "outlook.com", "hotmail.com", "yahoo.com.br"];
+const ddds = ["11", "21", "31", "41", "51", "61", "71", "81", "85", "27", "48", "62", "65", "92"];
+const streetTypes = ["Rua", "Avenida", "Travessa", "Alameda"];
+const streetNames = ["das Flores", "Brasil", "Sete de Setembro", "XV de Novembro", "Rio Branco", "Amazonas", "Paraná", "Minas Gerais", "dos Andradas", "Getúlio Vargas", "Santos Dumont", "Piratininga", "das Palmeiras", "São João", "Voluntários da Pátria"];
+const neighborhoods = ["Centro", "Jardim América", "Vila Nova", "Boa Vista", "Santa Cecília", "Jardim Europa", "Vila Industrial", "Cidade Nova", "Parque das Nações", "Bela Vista"];
+const citiesWithState: { city: string; state: string }[] = [
+    { city: "São Paulo", state: "SP" }, { city: "Rio de Janeiro", state: "RJ" }, { city: "Belo Horizonte", state: "MG" },
+    { city: "Curitiba", state: "PR" }, { city: "Porto Alegre", state: "RS" }, { city: "Salvador", state: "BA" },
+    { city: "Recife", state: "PE" }, { city: "Fortaleza", state: "CE" }, { city: "Brasília", state: "DF" },
+    { city: "Manaus", state: "AM" }, { city: "Goiânia", state: "GO" }, { city: "Florianópolis", state: "SC" },
+];
+
+const generateEmail = (nome: string): string => {
+    const normalized = nome.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    const user = normalized.split(' ').filter(Boolean).join('.');
+    return `${user}${random(89) + 10}@${randomFrom(emailDomains)}`;
+};
+
+const generatePhone = (masked: boolean): string => {
+    const ddd = randomFrom(ddds);
+    const numero = `9${Array.from({ length: 8 }, () => random()).join('')}`;
+    const raw = `${ddd}${numero}`;
+    return masked ? applyMask(raw, '(##) #####-####') : raw;
+};
+
+const generateCEP = (masked: boolean): string => {
+    const raw = Array.from({ length: 8 }, () => random()).join('');
+    return masked ? applyMask(raw, '#####-###') : raw;
+};
+
+const generateAddress = (masked: boolean): string => {
+    const local = randomFrom(citiesWithState);
+    const logradouro = `${randomFrom(streetTypes)} ${randomFrom(streetNames)}`;
+    const numero = random(9998) + 1;
+    const bairro = randomFrom(neighborhoods);
+    const cep = generateCEP(masked);
+    return `${logradouro}, ${numero} - ${bairro}, ${local.city}/${local.state} - CEP ${cep}`;
+};
+
+export const generatePerson = (masked: boolean) => {
+    const nome = `${randomFrom(firstNames)} ${randomFrom(lastNames)}`;
+    return {
+        nome,
+        cpf: generateCPF(masked),
+        rg: generateRG(masked),
+        email: generateEmail(nome),
+        telefone: generatePhone(masked),
+        endereco: generateAddress(masked),
+    };
+};
 
 export const generateCompany = (masked: boolean) => ({
     nome: `${randomFrom(lastNames)} ${randomFrom(companySuffixes)}`,
