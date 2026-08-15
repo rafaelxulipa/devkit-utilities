@@ -29,6 +29,7 @@ import CepLookup from './features/CepLookup';
 import TextDiff from './features/TextDiff';
 import CsvJsonConverter from './features/CsvJsonConverter';
 import JwtDecoder from './features/JwtDecoder';
+import PassphraseGenerator from './features/PassphraseGenerator';
 
 const TextIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -261,6 +262,16 @@ export const ALL_TOOLS: Tool[] = [
     icon: QrCodeIcon,
     component: QrCodeGenerator,
     tags: ['qr code', 'qrcode', 'gerador', 'link', 'código'],
+  },
+  {
+    id: 'passphrase-generator',
+    title: 'Gerador de Senha Memorável',
+    description: 'Crie senhas do tipo passphrase (palavras em português), fáceis de lembrar e seguras.',
+    path: 'gerador-senha-memoravel',
+    category: Category.GENERATORS,
+    icon: LockIcon,
+    component: PassphraseGenerator,
+    tags: ['senha', 'passphrase', 'memorável', 'diceware', 'gerador', 'palavras'],
   },
   {
     id: 'lorem-ipsum-generator',
