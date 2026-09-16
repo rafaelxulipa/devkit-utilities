@@ -10,6 +10,7 @@ import DocumentValidator from './features/DocumentValidator';
 import ColorPaletteGenerator from './features/ColorPaletteGenerator';
 import ColorPicker from './features/ColorPicker';
 import PersonGenerator from './features/PersonGenerator';
+import ZipCodeGenerator from './features/ZipCodeGenerator';
 import CompanyGenerator from './features/CompanyGenerator';
 import VehicleGenerator from './features/VehicleGenerator';
 import FinancialGenerator from './features/FinancialGenerator';
@@ -200,6 +201,13 @@ const MapPinIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+);
+
+const GlobeIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18M12 3a15 15 0 000 18" />
     </svg>
 );
 
@@ -394,6 +402,16 @@ export const ALL_TOOLS: Tool[] = [
     icon: UsersIcon,
     component: PersonGenerator,
     tags: ['pessoas', 'dados', 'fictício', 'mock', 'teste', 'nome', 'gerador'],
+  },
+  {
+    id: 'zip-code-generator',
+    title: 'Gerador de CEP e Zip Code',
+    description: 'Gere CEPs reais do Brasil (via ViaCEP) e códigos postais de outros países como EUA, Reino Unido e Portugal.',
+    path: 'gerador-cep',
+    category: Category.MOCK_DATA,
+    icon: GlobeIcon,
+    component: ZipCodeGenerator,
+    tags: ['cep', 'zip code', 'postal code', 'endereço', 'gerador', 'brasil', 'eua', 'reino unido', 'portugal', 'viacep'],
   },
   {
     id: 'company-generator',
