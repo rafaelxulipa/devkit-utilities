@@ -11,6 +11,7 @@ import ColorPaletteGenerator from './features/ColorPaletteGenerator';
 import ColorPicker from './features/ColorPicker';
 import PersonGenerator from './features/PersonGenerator';
 import ZipCodeGenerator from './features/ZipCodeGenerator';
+import ResumeGenerator from './features/ResumeGenerator';
 import CompanyGenerator from './features/CompanyGenerator';
 import VehicleGenerator from './features/VehicleGenerator';
 import FinancialGenerator from './features/FinancialGenerator';
@@ -204,6 +205,14 @@ const MapPinIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
     </svg>
 );
 
+const IdCardIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <rect x="3" y="5" width="18" height="14" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="9" cy="11" r="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 16c.5-1.5 1.8-2.5 3-2.5s2.5 1 3 2.5M14 10h4M14 13h4" />
+    </svg>
+);
+
 const GlobeIcon = ({ className = 'w-6 h-6' }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -392,6 +401,16 @@ export const ALL_TOOLS: Tool[] = [
     icon: MapPinIcon,
     component: CepLookup,
     tags: ['cep', 'endereço', 'viacep', 'consulta', 'busca'],
+  },
+  {
+    id: 'resume-generator',
+    title: 'Gerador de Currículo',
+    description: 'Monte seu currículo com dados pessoais, experiência, formação e habilidades, e baixe/imprima em PDF.',
+    path: 'gerador-curriculo',
+    category: Category.DOCUMENTS,
+    icon: IdCardIcon,
+    component: ResumeGenerator,
+    tags: ['currículo', 'curriculum', 'cv', 'emprego', 'vaga', 'experiência', 'formação', 'pdf', 'gerador'],
   },
   {
     id: 'person-generator',

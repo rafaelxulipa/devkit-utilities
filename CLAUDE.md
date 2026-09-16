@@ -4,7 +4,7 @@ Guia para o Claude Code (ou qualquer agente) trabalhar neste repositório.
 
 ## Visão geral
 
-**DevKit Utilidades** é uma SPA em português (pt-BR) que reúne ~35 utilitários do dia a dia
+**DevKit Utilidades** é uma SPA em português (pt-BR) que reúne ~36 utilitários do dia a dia
 ("canivete suíço digital"), com foco em ferramentas usadas por desenvolvedores e profissionais
 brasileiros (geradores/validadores de CPF, CNPJ, RG, placas etc.). Stack: React 18 + TypeScript +
 Vite 6 + Tailwind CSS + `react-router-dom` (HashRouter). **100% client-side** — não há backend,
@@ -70,6 +70,13 @@ na Vercel (`vercel.json` faz rewrite de tudo para `index.html`). Também é um P
 - O AdSense (`ca-pub-0079702856690089`) só carrega depois que o usuário aceita o banner de cookies
   (`AdConsentContext` + `CookieBanner`). Não adicione scripts de tracking que pulem esse gate de
   consentimento.
+- `features/ResumeGenerator.tsx` (`utils/resumeExport.ts`) exporta o currículo em PDF sem
+  depender de nenhuma lib (nada de jsPDF/html2canvas): monta um HTML/CSS autocontido em
+  `buildResumeHtml`, abre em `window.open('', '_blank')` via `document.write` e chama
+  `window.print()` — o usuário salva como PDF pelo diálogo de impressão do navegador. Isso só
+  funciona porque `openResumePrintWindow` é chamado de forma síncrona dentro do `onClick` (sem
+  `await` antes); mover a chamada para depois de uma operação assíncrona faz o bloqueador de
+  pop-ups do navegador barrar a nova aba.
 - `@types/react` e `@types/react-dom` são devDependencies explícitas (adicionadas depois do scaffold
   original, que não as tinha). Sem elas o `tsc --noEmit` não falha, mas também não checa tipo
   nenhum em JSX/props — bugs como prop inexistente passada a um componente viram `any` implícito e

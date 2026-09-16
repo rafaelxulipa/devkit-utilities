@@ -3,11 +3,9 @@ import React, { useState, useCallback } from 'react';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
 import { useToast } from '../contexts/ToastContext';
 import Button from '../components/Button';
+import { generateNicks, NickMethod } from '../utils/nickGenerator';
 
 // --- Data ---
-const adjectives = ['Rápido', 'Brilhante', 'Sombrio', 'Misterioso', 'Silencioso', 'Épico', 'Dourado', 'Gélido', 'Letal', 'Oculto'];
-const nouns = ['Lobo', 'Corvo', 'Dragão', 'Fantasma', 'Caçador', 'Mago', 'Guerreiro', 'Trovão', 'Espectro', 'Andarilho'];
-const symbols = ['★', '☆', '✦', '✧', '♦', '♢', '♠', '♤', '♥', '♡', '♣', '♧', '✖', '✔', '☠', '☣', '☢', '☯', '☮', '♆', '⚡', '❖', '※'];
 const commonSymbols = "© ® ™ ° ² ³ € ¥ £ $ ¢ ✓ ™ ℠ № ℗ Ω µ ∆ ∑ π ∞ ≈ ≠ ≤ ≥ ± ‰ ← → ↑ ↓ ↔ ↵";
 const fontMappings: Record<string, Record<string, string>> = {
   'Bold': {'a':'𝐚','b':'𝐛','c':'𝐜','d':'𝐝','e':'𝐞','f':'𝐟','g':'𝐠','h':'𝐡','i':'𝐢','j':'𝐣','k':'𝐤','l':'𝐥','m':'𝐦','n':'𝐧','o':'𝐨','p':'𝐩','q':'𝐪','r':'𝐫','s':'𝐬','t':'𝐭','u':'𝐮','v':'𝐯','w':'𝐰','x':'𝐱','y':'𝐲','z':'𝐳','A':'𝐀','B':'𝐁','C':'𝐂','D':'𝐃','E':'𝐄','F':'𝐅','G':'𝐆','H':'𝐇','I':'𝐈','J':'𝐉','K':'𝐊','L':'𝐋','M':'𝐌','N':'𝐍','O':'𝐎','P':'𝐏','Q':'𝐐','R':'𝐑','S':'𝐒','T':'𝐓','U':'𝐔','V':'𝐕','W':'𝐖','X':'𝐗','Y':'𝐘','Z':'𝐙'},
@@ -23,26 +21,75 @@ const Section: React.FC<{title: string, children: React.ReactNode}> = ({ title, 
     </div>
 );
 
-const NickGenerator: React.FC<{onCopy: (text: string, msg: string) => void}> = ({ onCopy }) => {
-    const [nick, setNick] = useState('');
-    const generateNick = useCallback(() => {
-        const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-        const noun = nouns[Math.floor(Math.random() * nouns.length)];
-        const sym = symbols[Math.floor(Math.random() * symbols.length)];
-        const num = Math.floor(Math.random() * 100);
-        const newNick = `${adj}${noun}${sym}${num}`;
-        setNick(newNick);
-    }, []);
+const nickMethods: { id: NickMethod; label: string }[] = [
+    { id: 'aleatorio', label: 'Aleatório' },
+    { id: 'nome', label: 'A partir do seu nome' },
+    { id: 'nome_adjetivo', label: 'Nome + Adjetivo' },
+];
 
-    useState(generateNick);
+const selectClass = 'w-full p-2 rounded-md bg-light-bg dark:bg-dark-bg border border-light-secondary/20 dark:border-dark-secondary/20';
+
+const NickGenerator: React.FC<{onCopy: (text: string, msg: string) => void}> = ({ onCopy }) => {
+    const [method, setMethod] = useState<NickMethod>('aleatorio');
+    const [nome, setNome] = useState('');
+    const [sobrenome, setSobrenome] = useState('');
+    const [tamanho, setTamanho] = useState(6);
+    const [quantidade, setQuantidade] = useState(5);
+    const [nicks, setNicks] = useState<string[]>([]);
+
+    const generateAll = useCallback(() => {
+        setNicks(generateNicks({ method, nome, sobrenome, tamanho, quantidade }));
+    }, [method, nome, sobrenome, tamanho, quantidade]);
+
+    useState(generateAll);
+
+    const usaNome = method !== 'aleatorio';
 
     return (
         <div className="space-y-4">
-            <input type="text" readOnly value={nick} className="w-full p-3 text-center font-mono rounded-md bg-light-bg dark:bg-dark-bg" />
-            <div className="flex gap-4 justify-center">
-                <Button onClick={generateNick}>Gerar Novo</Button>
-                <Button onClick={() => onCopy(nick, 'Nick copiado!')} variant="secondary">Copiar</Button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label className="block text-sm font-medium text-light-secondary dark:text-dark-secondary mb-1" htmlFor="nick-method">Método</label>
+                    <select id="nick-method" value={method} onChange={e => setMethod(e.target.value as NickMethod)} className={selectClass}>
+                        {nickMethods.map(m => <option key={m.id} value={m.id}>{m.label}</option>)}
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-light-secondary dark:text-dark-secondary mb-1" htmlFor="nick-tamanho">Tamanho</label>
+                    <select id="nick-tamanho" value={tamanho} onChange={e => setTamanho(Number(e.target.value))} className={selectClass}>
+                        {[4, 5, 6, 7, 8].map(n => <option key={n} value={n}>{n} letras</option>)}
+                    </select>
+                </div>
             </div>
+
+            {usaNome && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" value={nome} onChange={e => setNome(e.target.value)} placeholder="Seu nome" className="w-full p-2 rounded-md bg-light-bg dark:bg-dark-bg border border-light-secondary/20 dark:border-dark-secondary/20" />
+                    <input type="text" value={sobrenome} onChange={e => setSobrenome(e.target.value)} placeholder="Sobrenome (opcional)" className="w-full p-2 rounded-md bg-light-bg dark:bg-dark-bg border border-light-secondary/20 dark:border-dark-secondary/20" />
+                </div>
+            )}
+
+            <div>
+                <label className="block text-sm font-medium text-light-secondary dark:text-dark-secondary mb-1" htmlFor="nick-quantidade">Quantidade</label>
+                <select id="nick-quantidade" value={quantidade} onChange={e => setQuantidade(Number(e.target.value))} className={selectClass}>
+                    {[3, 5, 10, 20].map(n => <option key={n} value={n}>{n} nicks</option>)}
+                </select>
+            </div>
+
+            <div className="flex justify-center">
+                <Button onClick={generateAll}>Gerar Nicks</Button>
+            </div>
+
+            {nicks.length > 0 && (
+                <div className="space-y-2">
+                    {nicks.map(n => (
+                        <div key={n} className="flex items-center justify-between p-2 bg-light-bg dark:bg-dark-bg rounded-md">
+                            <span className="font-mono">{n}</span>
+                            <Button variant="secondary" onClick={() => onCopy(n, 'Nick copiado!')}>Copiar</Button>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
