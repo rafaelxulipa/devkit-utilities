@@ -4,7 +4,7 @@ Guia para o Claude Code (ou qualquer agente) trabalhar neste repositório.
 
 ## Visão geral
 
-**DevKit Utilidades** é uma SPA em português (pt-BR) que reúne ~18 utilitários do dia a dia
+**DevKit Utilidades** é uma SPA em português (pt-BR) que reúne ~35 utilitários do dia a dia
 ("canivete suíço digital"), com foco em ferramentas usadas por desenvolvedores e profissionais
 brasileiros (geradores/validadores de CPF, CNPJ, RG, placas etc.). Stack: React 18 + TypeScript +
 Vite 6 + Tailwind CSS + `react-router-dom` (HashRouter). **100% client-side** — não há backend,
@@ -55,6 +55,13 @@ na Vercel (`vercel.json` faz rewrite de tudo para `index.html`). Também é um P
 - `features/CodeFormatter.tsx` importa o Prettier e os plugins dinamicamente via `esm.sh` em
   runtime (não é bundlado) — precisa de rede e falha silenciosamente offline.
 - `features/ImagePlaceholderGenerator.tsx` depende do serviço externo `picsum.photos`.
+- `features/ZipCodeGenerator.tsx` (`utils/zipCodeGenerator.ts`) é o gerador de CEP/Zip Code. Para
+  Brasil e Reino Unido ele busca um código postal **real** ao vivo (ViaCEP e `postcodes.io`,
+  respectivamente) — falha silenciosamente offline, igual ao `CepLookup`. Para EUA e Portugal usa
+  uma lista estática curada de códigos reais de grandes cidades (não há API pública gratuita
+  equivalente para esses países). Ao adicionar um novo país, decida explicitamente entre os dois
+  modos e deixe isso visível na UI (`sourceLabel`), para não passar a impressão de que a lista
+  curada é uma consulta ao vivo.
 - O cache do service worker tem nome `devkit-v2` em `public/sw.js` — mude essa string sempre que
   alterar os assets pré-cacheados (`/`, `/index.html`, `/index.css`, `/favicon.svg`), senão
   usuários recorrentes continuam recebendo a versão antiga.
@@ -63,6 +70,10 @@ na Vercel (`vercel.json` faz rewrite de tudo para `index.html`). Também é um P
 - O AdSense (`ca-pub-0079702856690089`) só carrega depois que o usuário aceita o banner de cookies
   (`AdConsentContext` + `CookieBanner`). Não adicione scripts de tracking que pulem esse gate de
   consentimento.
+- `@types/react` e `@types/react-dom` são devDependencies explícitas (adicionadas depois do scaffold
+  original, que não as tinha). Sem elas o `tsc --noEmit` não falha, mas também não checa tipo
+  nenhum em JSX/props — bugs como prop inexistente passada a um componente viram `any` implícito e
+  passam batido. Não remova essas devDependencies.
 
 ## Comandos
 

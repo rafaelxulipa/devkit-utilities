@@ -63,7 +63,7 @@ const FancyTextGenerator: React.FC<{onCopy: (text: string, msg: string) => void}
                     <div key={style} className="flex items-center justify-between p-2 bg-light-bg dark:bg-dark-bg rounded-md">
                         <span className="font-semibold">{style}</span>
                         <span className="truncate flex-grow mx-4">{convertText(style)}</span>
-                        <Button size="sm" variant="secondary" onClick={() => onCopy(convertText(style), 'Texto copiado!')}>Copiar</Button>
+                        <Button variant="secondary" onClick={() => onCopy(convertText(style), 'Texto copiado!')}>Copiar</Button>
                     </div>
                 ))}
             </div>
